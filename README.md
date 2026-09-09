@@ -286,7 +286,7 @@ This project is available for free use in personal and commercial projects. No a
 ## 📞 Contact
 
 **O'Brian Digital**
-- Website: [obriandigital.com](https://obriandigital.com)
+- Website: [obriandigital.com](https://obriangroup.com)
 - Email: info@obriangroup.com
 - LinkedIn: [O'Brian Digital](https://za.linkedin.com/company/o-brian-digital)
 
