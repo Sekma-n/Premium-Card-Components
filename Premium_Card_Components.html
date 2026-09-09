@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Card Components | O'Brian Digital</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: {
+                            DEFAULT: '#C9A84C',
+                            light: '#E8D5A3',
+                            dark: '#A8893A'
+                        },
+                        charcoal: '#1A1A1A',
+                        'dark-primary': '#0A0A0A',
+                        'gold-gradient': 'linear-gradient(135deg, #C9A84C 0%, #E8D5A3 100%)'
+                    },
+                    fontFamily: {
+                        'primary': ['Inter', 'sans-serif'],
+                        'display': ['Playfair Display', 'serif'],
+                    },
+                    boxShadow: {
+                        'premium': '0 8px 32px rgba(201, 168, 76, 0.15)',
+                        'premium-hover': '0 16px 48px rgba(201, 168, 76, 0.25)',
+                        'glass': '0 4px 24px rgba(255, 255, 255, 0.1)',
+                        'dark': '0 8px 32px rgba(0, 0, 0, 0.3)'
+                    },
+                    animation: {
+                        'float': 'float 4s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite',
+                        'shimmer': 'shimmer 2s linear infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%, 100%': { boxShadow: '0 0 20px rgba(201, 168, 76, 0.3)' },
+                            '50%': { boxShadow: '0 0 40px rgba(201, 168, 76, 0.6)' },
+                        },
+                        shimmer: {
+                            '0%': { backgroundPosition: '-200% 0' },
+                            '100%': { backgroundPosition: '200% 0' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #0A0A0A;
+            color: #FFFFFF;
+            min-height: 100vh;
+            padding: 40px;
+        }
+
+        /* ===== CARD STYLES ===== */
+        
+        /* 1. Premium Glass Card */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+            transition: left 0.5s;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-8px);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 20px 48px rgba(201, 168, 76, 0.2);
+        }
+
+        .glass-card:hover::before {
+            left: 100%;
+        }
+
+        /* 2. Gold Accent Card */
+        .gold-card {
+            background: linear-gradient(135deg, #0A0A0A 0%, #1A1A1A 100%);
+            border: 1px solid rgba(201, 168, 76, 0.3);
+            border-radius: 16px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gold-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(135deg, #C9A84C, #E8D5A3);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .gold-card:hover {
+            box-shadow: 0 16px 48px rgba(201, 168, 76, 0.3);
+            border-color: rgba(201, 168, 76, 0.8);
+            transform: translateY(-6px);
+        }
+
+        .gold-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        /* 3. Interactive Service Card */
+        .service-card {
+            background: #1A1A1A;
+            border-radius: 16px;
+            padding: 32px;
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .service-card:hover {
+            background: #222;
+            border-color: rgba(201, 168, 76, 0.4);
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        .service-card .icon-wrapper {
+            width: 64px;
+            height: 64px;
+            border-radius: 16px;
+            background: linear-gradient(135deg, #C9A84C, #E8D5A3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #0A0A0A;
+            margin-bottom: 20px;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover .icon-wrapper {
+            transform: rotate(-10deg) scale(1.1);
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.4);
+        }
+
+        /* 4. Testimonial Card */
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 20px;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .testimonial-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(201, 168, 76, 0.3);
+            transform: scale(1.02);
+        }
+
+        .testimonial-card .quote-mark {
+            position: absolute;
+            top: -20px;
+            left: 20px;
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, #C9A84C, #E8D5A3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #0A0A0A;
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.4);
+        }
+
+        /* 5. Portfolio Card */
+        .portfolio-card {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            background: #1A1A1A;
+            transition: all 0.4s ease;
+        }
+
+        .portfolio-card img {
+            width: 100%;
+            height: 240px;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .portfolio-card:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-card .overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.6), transparent);
+            padding: 24px;
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .portfolio-card:hover .overlay {
+            transform: translateY(0);
+        }
+
+        .portfolio-card:hover {
+            box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);
+        }
+
+        /* 6. Minimal Card */
+        .minimal-card {
+            background: transparent;
+            border: 1px solid rgba(201, 168, 76, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .minimal-card:hover {
+            background: rgba(201, 168, 76, 0.05);
+            border-color: rgba(201, 168, 76, 0.6);
+            transform: translateY(-4px);
+        }
+
+        /* 7. Shimmer Card */
+        .shimmer-card {
+            background: linear-gradient(135deg, #1A1A1A, #2A2A2A, #1A1A1A);
+            background-size: 200% 200%;
+            animation: shimmer 3s ease infinite;
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+        }
+
+        .shimmer-card:hover {
+            border-color: rgba(201, 168, 76, 0.4);
+            transform: translateY(-4px);
+        }
+
+        /* 8. Gradient Card */
+        .gradient-card {
+            background: linear-gradient(135deg, #C9A84C 0%, #E8D5A3 50%, #A8893A 100%);
+            border-radius: 16px;
+            padding: 32px;
+            color: #0A0A0A;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gradient-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3), transparent);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .gradient-card:hover {
+            transform: translateY(-8px) rotate(-1deg);
+            box-shadow: 0 24px 48px rgba(201, 168, 76, 0.4);
+        }
+
+        .gradient-card:hover::before {
+            opacity: 1;
+        }
+
+        /* 9. Animated Card */
+        .animated-card {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .animated-card:nth-child(2n) {
+            animation-delay: 2s;
+        }
+
+        .animated-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(201, 168, 76, 0.4);
+            animation-play-state: paused;
+            transform: translateY(-10px);
+        }
+
+        /* 10. Glow Card */
+        .glow-card {
+            background: #1A1A1A;
+            border-radius: 16px;
+            padding: 32px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .glow-card:hover {
+            animation: none;
+            box-shadow: 0 0 40px rgba(201, 168, 76, 0.6);
+            transform: translateY(-4px);
+        }
+
+        /* Utility */
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 24px;
+            color: #C9A84C;
+            text-align: center;
+        }
+
+        .card-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #FFFFFF;
+        }
+
+        .card-desc {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            color: #C9A84C;
+        }
+
+        .card-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 20px;
+            background: transparent;
+            border: 1px solid rgba(201, 168, 76, 0.6);
+            color: #C9A84C;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .card-btn:hover {
+            background: #C9A84C;
+            color: #0A0A0A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(201, 168, 76, 0.3);
+        }
+
+        .card-btn.full {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            .card-container {
+                grid-template-columns: 1fr;
+                gap: 16px;
+            }
+            .section-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== CARD DEMONSTRATION ===== -->
+    
+    <h1 class="section-title">Premium Card Components</h1>
+    <p style="text-align: center; margin-bottom: 40px; color: rgba(255,255,255,0.6);">Modern, interactive, and beautiful - designed for 2026</p>
+
+    <!-- 1. Glass Card -->
+    <div class="card-container">
+        <div class="glass-card">
+            <div class="p-8">
+                <div class="card-icon"><i class="fas fa-layer-group"></i></div>
+                <h3 class="card-title">Glassmorphism</h3>
+                <p class="card-desc">Modern frosted glass effect with backdrop blur and subtle hover animations. Perfect for a premium, futuristic feel.</p>
+                <a href="#" class="card-btn">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- 2. Gold Accent Card -->
+        <div class="gold-card">
+            <div class="p-8">
+                <div class="card-icon"><i class="fas fa-star"></i></div>
+                <h3 class="card-title">Premium Gold</h3>
+                <p class="card-desc">Sophisticated gold accent with animated bottom border. Perfect for highlighting premium services and products.</p>
+                <a href="#" class="card-btn">Discover <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- 3. Service Card -->
+        <div class="service-card">
+            <div class="p-8">
+                <div class="icon-wrapper"><i class="fas fa-cog"></i></div>
+                <h3 class="card-title">Interactive Service</h3>
+                <p class="card-desc">Engaging card with animated icon and hover effects. Perfect for showcasing services in an interactive way.</p>
+                <a href="#" class="card-btn">View Services <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 4. Testimonial Card -->
+    <div class="card-container">
+        <div class="testimonial-card">
+            <div class="quote-mark"><i class="fas fa-quote-left"></i></div>
+            <div class="pt-4">
+                <h3 class="card-title">Amazing Experience</h3>
+                <p class="card-desc">"The team at O'Brian Digital transformed our business. Their attention to detail and commitment to quality is unmatched."</p>
+                <div style="display: flex; align-items: center; gap: 12px; margin-top: 20px;">
+                    <img src="Head of Design.jpeg" style="width: 48px; height: 48px; border-radius: 50%; object-fit: cover;">
+                    <div>
+                        <p style="font-size: 0.875rem; font-weight: 600;">Sekang Segotso</p>
+                        <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5);">CEO, TechStart</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. Portfolio Card -->
+        <div class="portfolio-card">
+            <img src="images (1).jpeg" alt="Project 1">
+            <div class="overlay">
+                <h3 class="card-title">Project Example</h3>
+                <p class="card-desc">Modern web design & development</p>
+                <a href="#" class="card-btn">View Project <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- 6. Minimal Card -->
+        <div class="minimal-card">
+            <div class="p-6">
+                <div class="card-icon"><i class="fas fa-bolt"></i></div>
+                <h3 class="card-title">Minimal Design</h3>
+                <p class="card-desc">Clean, minimal approach with subtle hover effects. Perfect for a modern, understated look.</p>
+                <a href="#" class="card-btn">See More <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 7. Shimmer Card -->
+    <div class="card-container">
+        <div class="shimmer-card">
+            <div class="p-8">
+                <div class="card-icon"><i class="fas fa-sparkles"></i></div>
+                <h3 class="card-title">Shimmer Effect</h3>
+                <p class="card-desc">Animated shimmer background that adds life and movement to the card design. Eye-catching and modern.</p>
+                <a href="#" class="card-btn">Explore <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- 8. Gradient Card -->
+        <div class="gradient-card">
+            <div class="p-8">
+                <div class="card-icon" style="color: #0A0A0A;"><i class="fas fa-gem"></i></div>
+                <h3 class="card-title" style="color: #0A0A0A;">Gradient Design</h3>
+                <p class="card-desc" style="color: rgba(0,0,0,0.8);">Bold, vibrant gradient background with radial hover effect. Perfect for making a statement.</p>
+                <a href="#" class="card-btn" style="border-color: #0A0A0A; color: #0A0A0A;">Get Started <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- 9. Animated Card -->
+        <div class="animated-card">
+            <div class="p-8">
+                <div class="card-icon"><i class="fas fa-arrow-trend-up"></i></div>
+                <h3 class="card-title">Floating Animation</h3>
+                <p class="card-desc">Continuous floating animation that adds dynamic movement to your UI. Modern and engaging.</p>
+                <a href="#" class="card-btn">View Details <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 10. Glow Card -->
+    <div class="card-container">
+        <div class="glow-card">
+            <div class="p-8">
+                <div class="card-icon"><i class="fas fa-fire"></i></div>
+                <h3 class="card-title">Glow Effect</h3>
+                <p class="card-desc">Pulsing glow animation that makes cards stand out. Perfect for CTAs and important elements.</p>
+                <a href="#" class="card-btn full">Let's Talk <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Additional Bonus: Stats Card -->
+        <div class="glass-card" style="background: linear-gradient(135deg, #C9A84C, #A8893A);">
+            <div class="p-8" style="color: #0A0A0A;">
+                <div class="card-icon" style="color: #0A0A0A;"><i class="fas fa-chart-line"></i></div>
+                <h3 class="card-title" style="color: #0A0A0A;">+250% Growth</h3>
+                <p class="card-desc" style="color: rgba(0,0,0,0.8);">We've helped clients achieve unprecedented growth with our strategies.</p>
+                <a href="#" class="card-btn" style="border-color: #0A0A0A; color: #0A0A0A;">See Results <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <!-- Additional Bonus: Icon Card -->
+        <div class="service-card" style="background: linear-gradient(135deg, #1A1A1A, #2A2A2A);">
+            <div class="p-8">
+                <div class="icon-wrapper" style="background: linear-gradient(135deg, #4A90D9, #7C4DFF);"><i class="fas fa-rocket"></i></div>
+                <h3 class="card-title">Launched in 2026</h3>
+                <p class="card-desc">Stay ahead of the curve with the latest in digital innovation and design.</p>
+                <a href="#" class="card-btn">Innovate Now <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
