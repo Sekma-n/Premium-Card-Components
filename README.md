@@ -286,8 +286,8 @@ This project is available for free use in personal and commercial projects. No a
 ## 📞 Contact
 
 **O'Brian Digital**
-- Website: [obriandigital.com]([https://obriangroup.com](https://sekma-n.github.io/O-Brian-Digital/Home.html))
-- Email: info@obriangroup.com
+- Website: [obriandigital.com](https://sekma-n.github.io/O-Brian-Digital/Home.html)
+- Email: sekang@obriangroup.com
 - LinkedIn: [O'Brian Digital](https://za.linkedin.com/company/o-brian-digital)
 
 ---
